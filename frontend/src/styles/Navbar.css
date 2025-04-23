@@ -1,0 +1,125 @@
+.navbar {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+  }
+  
+  .nav-item {
+    margin-left: 20px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  
+  .nav-link:hover {
+    opacity: 0.8;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-icon {
+    position: relative;
+    color: white;
+    margin-right: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #dc3545;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .welcome-text {
+    margin-right: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-logout {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn-login, .btn-register {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-register {
+    background-color: #007bff;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-container {
+      flex-direction: column;
+    }
+    
+    .nav-menu, .nav-actions {
+      margin-top: 15px;
+    }
+    
+    .nav-item {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    .cart-icon {
+      margin-right: 15px;
+    }
+  }
