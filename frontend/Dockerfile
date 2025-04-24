@@ -2,10 +2,10 @@ FROM node:16-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-# Add this line to fix permissions
 RUN chmod -R 755 node_modules/.bin
 COPY . .
-RUN npm run build
+# Change this line to use npx
+RUN npx react-scripts build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
