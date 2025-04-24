@@ -1,22 +1,19 @@
 FROM node:16 as build
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Add the node_modules/.bin to PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
 # Install dependencies
+COPY package*.json ./
 RUN npm install
-
-# Fix permissions more aggressively
-RUN chmod -R 777 /app/node_modules
-RUN find /app/node_modules/.bin -type f -exec chmod +x {} \;
+RUN npm install react-scripts -g
 
 # Copy project files
 COPY . .
 
-# Try a different build approach
-RUN npm rebuild node-sass
-RUN NODE_ENV=production CI=false npm run build
+# Build the app
+RUN npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
