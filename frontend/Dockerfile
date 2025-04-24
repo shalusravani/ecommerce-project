@@ -1,21 +1,22 @@
-FROM node:16-alpine as build
+FROM node:16 as build
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Set ownership and permissions
-RUN mkdir -p node_modules/.bin && chmod -R 777 node_modules/.bin
+# Fix permissions more aggressively
+RUN chmod -R 777 /app/node_modules
+RUN find /app/node_modules/.bin -type f -exec chmod +x {} \;
 
 # Copy project files
 COPY . .
 
-# Try both approaches for building
-RUN set -x && \
-    npm run build || \
-    npx react-scripts build || \
-    ./node_modules/.bin/react-scripts build
+# Try a different build approach
+RUN npm rebuild node-sass
+RUN NODE_ENV=production CI=false npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
