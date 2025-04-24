@@ -4,8 +4,8 @@ COPY package*.json ./
 RUN npm install
 RUN chmod -R 755 node_modules/.bin
 COPY . .
-# Change this line to use npx
-RUN npx react-scripts build
+# Use the full path to react-scripts
+RUN ./node_modules/.bin/react-scripts build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
