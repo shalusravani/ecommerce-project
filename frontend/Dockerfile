@@ -1,11 +1,21 @@
 FROM node:16-alpine as build
 WORKDIR /app
+
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
-RUN chmod -R 755 node_modules/.bin
+
+# Set ownership and permissions
+RUN mkdir -p node_modules/.bin && chmod -R 777 node_modules/.bin
+
+# Copy project files
 COPY . .
-# Use the full path to react-scripts
-RUN ./node_modules/.bin/react-scripts build
+
+# Try both approaches for building
+RUN set -x && \
+    npm run build || \
+    npx react-scripts build || \
+    ./node_modules/.bin/react-scripts build
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
